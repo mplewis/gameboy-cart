@@ -2,8 +2,8 @@
 
 module cart_rom_testbench ();
 
-  reg [15:0] addr;
-  wire [7:0] out;
+  output reg [15:0] addr;
+  input [7:0] out;
 
   cart_rom c(.addr(addr), .out(out));
 
@@ -12,10 +12,13 @@ module cart_rom_testbench ();
   end
 
   initial begin
-    addr = 0;
+    $dumpfile("cart_rom_test.vcd");
+    $dumpvars(0, addr, out);
     $display("Simulation start.");
     $monitor("Time: %d\tAddr: %x\tOut: %x", $time, addr, out);
-    #300 $finish;
+
+    addr = 0;
+    #200 $finish;
   end
 
 endmodule
